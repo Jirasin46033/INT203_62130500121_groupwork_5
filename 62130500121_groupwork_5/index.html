@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackpink in your area</title>
+    <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+    <!-- Using via Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- https://tailwindcss.com/docs/installation -->
+    <!-- Using Tailwind via CDN -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+    <!-- Vue CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" rel="stylesheet" />
+    <script src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js'></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<body>
+    <div id="app" class="grid place-items-center min-h-screen bg-gradient-to-t from-blue-200 to-indigo-900 p-5">
+        <!-- header -->
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-200 mb-5">Photo Gallery ({{countPic}})</h1>
+        <h1 class="text-3xl">Like ({{countLike}})</h1>
+        
+        <photo-search :search="toggleSearch" v-model:s-field="searchPic" @search-start="startSearch"
+            @search-end="cancelSearch"></photo-search>
+
+        <!-- content -->
+        <section class="grid grid-cols-1 sm:grid-cols-5 gap-4" v-if="filteredPhoto.length !== 0">
+
+            <!-- CARD -->
+            <div class="bg-gray-900 shadow-lg rounded p-3" v-for="(picture,index) in filteredPhoto">
+                <photo-item :picture="picture" @like-pic="like"></photo-item>
+                <photo-view :picture="picture" @toggle-pic="toggleModel"></photo-view>
+            </div>
+            <!-- END OF CARD -->
+
+        </section>
+
+        <!-- else ตอน search ไม่เจอ -->
+        <div v-else class="mt-10 bg-white shadow-lg rounded w-full mx-auto px-auto py-5 flex justify-center ">
+            <h2 class="mb-2 text-2xl font-bold text-gray-800 ">No Photos</h2>
+        </div>
+        
+    </div>
+
+    <!-- my main.js -->
+    <script src="./main.js"></script>
+    <script src="./components/PhotoItem.js"></script>
+    <script src="./components/PhotoSearch.js"></script>
+    <script src="./components/PhotoView.js"></script>
+</body>
+
+<script>
+    const mountedApp = app.mount('#app');
+</script>
+
+</html>
